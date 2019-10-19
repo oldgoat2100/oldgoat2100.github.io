@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>ANTL_100</title>
+		<meta name="description" content="">
+		<meta name="author" content="Quyen Nguyen">
+		<meta name="viewport" content="width=device-width; initial-scale=1.0">
+
+		<style type="text/css">
+      body {
+        height: 600px;
+        width: 1330px;
+        border-radius: 5px;
+        overflow: scroll;
+      }
+
+      #header {
+        position: relative;
+        width: 1330px;
+        height: 40px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: xx-large;
+        font-style: bold;
+        font-style: italic;
+        color: cornflowerblue;
+        vertical-align: center;
+        text-align: center;
+        border-radius: 5px;
+        block: center;
+      }
+
+      #choiceTab {
+        position: relative;
+        top: 0;
+        left: 2;
+        height: 400px;
+        width: 1328px;
+        border: 1px solid teal;
+        border-radius: 5px;
+      }
+
+      #separator {
+        position: relative;
+        top: 0;
+        left: 2;
+        height: 20px;
+        width: 1328px;
+      }
+
+      #catTab {
+        position: relative;
+        top: 0;
+        left: 2;
+        height: 100px;
+        width: 1332px;
+        border: 1px solid teal;
+        border-radius: 5px;
+      }
+
+      #footer {
+        position: relative;
+        bottom: 0px;
+        left: 2px;
+        width: 1328px;
+        height: 40px;
+      }
+
+      #status {
+        position: relative;
+        bottom: -10px;
+        left: 400px;
+        width: 300px;
+        height: 30px;
+        color: maroon;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: xx-large;
+        font-style: bold;
+        font-style: italic;
+        vertical-align: center;
+        text-align: center;
+      }
+
+      .lesStyle {
+        border: 1px solid #C0C0C0;
+        height: 200px;
+        width: 260px;
+        border-radius: 5px;
+      }
+
+      .catStyle {
+        border: 1px solid #C0C0C0;
+        height: 80px;
+        width: 263px;
+        border-radius: 5px;
+        vertical-align: center;
+        text-align: center;
+        font-weight: bold;
+        font-size: xx-large;
+      }
+
+		</style>
+
+	</head>
+
+	<body>
+		<div id="header">
+			Âm Ngữ Trị Liệu
+		</div>
+
+		<table id="choiceTab">
+			<tbody>
+				<tr>
+					<td class="lesStyle">&nbsp;</td>
+					<td class="lesStyle">&nbsp;</td>
+					<td class="lesStyle">&nbsp;</td>
+					<td class="lesStyle">&nbsp;</td>
+					<td class="lesStyle">&nbsp;</td>
+				</tr>
+				<tr>
+					<td class="lesStyle">&nbsp;</td>
+					<td class="lesStyle">&nbsp;</td>
+					<td class="lesStyle">&nbsp;</td>
+					<td class="lesStyle">&nbsp;</td>
+					<td class="lesStyle">&nbsp;</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div id="separator">
+			<br>
+		</div>
+
+		<table id="catTab">
+			<tbody>
+				<tr>
+					<td class="catStyle">Trái Cây</td>
+					<td class="catStyle">Hoa Quả</td>
+					<td class="catStyle">Nhà Bếp</td>
+					<td class="catStyle">Xe Cộ</td>
+					<td class="catStyle">Thú Vật</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div id="footer">
+			<span style="vertical-align: bottom; position: absolute; bottom: 0px;"> 
+				&copy; Copyright by Quyen Nguyen 2014 Version 1.0  </span>
+
+			<div id="status">
+
+			</div>
+
+		</div>
+
+		<script>
+		window.onload = function()
+		{
+
+			init("img", 5, 10);
+			init("aud", 5, 10);
+
+			var tmpCells = table1.getElementsByTagName("td");
+			for (var i = 0; i < 10; i++)
+			{
+				var tempImg = new Image();
+				tempImg.src = images[i];
+				tempImg.height = "200";
+				tempImg.width = "260";
+				//	tmpCells[i].innerHTML = '';
+				tmpCells[i].appendChild(tempImg);
+			}
+		};
+
+		</script>
+
+	</body>
+
+	<script>
+	var images = new Array();
+	var sounds = new Array();
+	var curIndexOffet;
+
+	var player = new Audio();
+	var busy;
+	var savedImg;
+
+	//init data
+	var images = new Array();
+	var sounds = new Array();
+
+	var selectedChoice;
+	var selectedCat;
+	var table1 = document.getElementById('choiceTab');
+	var table2 = document.getElementById('catTab');
+
+	function init(dataType, catLen, dataLen)
+	{
+		var dir, ext;
+		var i, j, k, index;
+
+		if (dataType == "img")
+		{
+			ext = "_img.jpg";
+			dir = "images";
+			for ( i = 1; i <= catLen; i++)
+			{
+				k = i * 100;
+				for ( j = 0; j < dataLen; j++)
+				{
+					index = (i - 1) * 10 + j;
+					var tmp = new String(dir);
+					tmp += "\/" + (k + j) + ext;
+					images[index] = tmp;
+				}
+			}
+
+		}
+		else
+		{
+			ext = "_aud.mp3";
+			dir = "sounds";
+			for ( i = 1; i <= catLen; i++)
+			{
+				k = i * 100;
+				for ( j = 0; j < dataLen; j++)
+				{
+					index = (i - 1) * 10 + j;
+					var tmp = new String(dir);
+					tmp += "\/" + (k + j) + ext;
+					sounds[index] = tmp;
+				}
+			}
+		}
+	};
+
+	var playerDone = function(e)
+	{
+		busy = false;
+		document.getElementById('status').innerHTML = "";
+	};
+
+	var selectCellChoice = function(e)
+	{
+		var row, col, cell;
+
+		cell = e.target;
+		row = cell.parentNode.rowIndex;
+
+		if (row == null)
+		{
+			cell = e.target.parentNode;
+			row = cell.parentNode.rowIndex;
+		}
+
+		if (busy)
+		{
+			document.getElementById('status').innerHTML = "Chờ Chút...";
+			return;
+		}
+
+		if (selectedChoice)
+		{
+			selectedChoice.style.border = '1px solid gray';
+		}
+		cell.style.border = '2px solid blue';
+		selectedChoice = cell;
+
+		col = cell.cellIndex;
+		var index = (row * 5) + col;
+		if (curIndexOffset == null)
+		{
+			curIndexOffset = 0;
+		}
+		player.src = sounds[index + curIndexOffset];
+		player.play();
+		busy = true;
+	};
+
+	var selectCellCat = function(e)
+	{
+		var cell = e.target;
+		if (selectedCat)
+		{
+			selectedCat.style.border = '1px solid gray';
+		}
+		cell.style.border = '2px solid blue';
+		selectedCat = cell;
+		var catIndex = cell.cellIndex;
+		var tab1Cells = table1.getElementsByTagName("td");
+		curIndexOffset = catIndex * 10;
+		for (var i = 0; i < 10; i++)
+		{
+			var tempImg = new Image();
+			tempImg.src = images[curIndexOffset + i];
+			tempImg.height = "200";
+			tempImg.width = "260";
+			tab1Cells[i].innerHTML = '';
+			tab1Cells[i].appendChild(tempImg);
+		}
+	};
+
+	table1.addEventListener('click', selectCellChoice);
+	table2.addEventListener('click', selectCellCat);
+	player.addEventListener('ended', playerDone);
+	curIndexOffset = 0;
+	busy = false;
+
+	</script>
+
+</html>
+
